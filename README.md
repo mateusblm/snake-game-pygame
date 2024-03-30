@@ -16,13 +16,13 @@ Instalação
 
 Clone o repositório para a sua máquina local:
 
-    git clone https://github.com/mateusblm/snakegame.git
+    git clone https://github.com/mateusblm/snake-game-pygame.git
 
 
 
 Entre na pasta do projeto:
 
-    cd snake-game
+    cd snake-game-pygame
 
 Instale a biblioteca PyGame:
 
@@ -33,7 +33,7 @@ Uso
 
 Para iniciar o jogo, execute o seguinte comando na pasta do projeto:
 
-python3 game.py
+python3 snake.py
 
 Controle a cobra usando as teclas de seta do teclado. O objetivo é comer o máximo de frutas possível sem colidir com as paredes ou com o próprio corpo da cobra.
 Contribuindo
