@@ -21,6 +21,8 @@ pontos = 0
 lista_cobra = []
 comprimento_inicial = 5
 morte = False
+imagem_maca = pygame.image.load("apple.png")
+imagem_maca = pygame.transform.scale(imagem_maca, (25, 25))
 # Função de desenho do corpo da cobra
 def aumentaCobra(lista_cobra):
     for XeY in lista_cobra:
@@ -86,7 +88,7 @@ while True:
     x_cobra = x_cobra + x_controle
     y_cobra = y_cobra + y_controle
     cobra = pygame.draw.rect(tela, (65, 105, 225), (x_cobra, y_cobra, 20, 20))
-    maca = pygame.draw.rect(tela, (255, 0, 0), (x_maca, y_maca, 20, 20))
+    maca = pygame.draw.rect(tela, (255, 255, 255), (x_maca, y_maca, 20, 20))
     if cobra.colliderect(maca):
         x_maca = randint(40, 600)
         y_maca = randint(50, 430)
@@ -132,4 +134,5 @@ while True:
 
     aumentaCobra(lista_cobra)
     tela.blit(texto_formatado, (450, 40))
+    tela.blit(imagem_maca, (x_maca, y_maca))
     pygame.display.update()
