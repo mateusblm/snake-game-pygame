@@ -105,6 +105,8 @@ while True:
     # Colisão com a parede
     if x_cobra > largura:
         morte = True
+    if x_cobra < 0:
+        morte = True
     if y_cobra < 0:
         morte = True
     if y_cobra > altura:
