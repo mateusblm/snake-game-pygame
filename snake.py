@@ -40,7 +40,7 @@ def aumentaCobra(lista_cobra):
         # XeY = [x, y]
         # XeY[0] = x
         # XeY[1] = y
-        pygame.draw.rect(tela, (0, 255, 0), (XeY[0], XeY[1], 20, 20))
+        pygame.draw.rect(tela, (0, 0, 255), (XeY[0], XeY[1], 20, 20))
 
 
 # Função de reinicio do jogo
@@ -131,8 +131,8 @@ def render_game():
     texto_formatado = fontepontos.render(pontuacao, True, (0, 0, 0))
     x_cobra = x_cobra + x_controle
     y_cobra = y_cobra + y_controle
-    cobra = pygame.draw.rect(tela, (65, 105, 225), (x_cobra, y_cobra, 20, 20))
-    maca = pygame.draw.rect(tela, (255, 255, 255), (x_maca, y_maca, 20, 20))
+    cobra = pygame.draw.rect(tela, (0, 0, 255), (x_cobra, y_cobra, 20, 20))
+    maca = pygame.draw.rect(tela, (175, 215, 70), (x_maca, y_maca, 20, 20))
 
     if cobra.colliderect(maca):
         x_maca = randint(40, 600)
@@ -198,7 +198,7 @@ def render_morte():
 
 while True:
     relogio.tick(60)
-    tela.fill((255, 255, 255))
+    tela.fill((175, 215, 70))
     if not morte:
         render_game()
     else:
