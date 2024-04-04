@@ -25,7 +25,7 @@ duracao_maca_dourada = 4000
 maca_dourada_ja_apareceu = False
 fontepontos = pygame.font.SysFont("arial", 15, True, True)
 fontefases = pygame.font.SysFont("arial", 40, True, True)
-pontos = 9
+pontos = 0
 lista_cobra = []
 comprimento_inicial = 15
 morte = False
@@ -103,7 +103,7 @@ def maca_dourada_aparecer():
     global tempo_inicio_maca_dourada, maca_dourada, pontos, comprimento_inicial, maca_dourada_ativa, tempo_atual, x_macadourada, y_macadourada, maca_dourada_ja_apareceu
     global imagem_maca_dourada
     if maca_dourada_ativa and not maca_dourada_ja_apareceu:
-        tempo_inicio_maca_dourada = tempo_atual
+        tempo_inicio_maca_dourada = 0
         imagem_maca_dourada = pygame.image.load("goldapple.png")
         imagem_maca_dourada = pygame.transform.scale(imagem_maca_dourada, (30, 30))
         maca_dourada = pygame.draw.rect(tela, (0, 0, 0), (x_macadourada, y_macadourada, 30, 30))
@@ -115,10 +115,10 @@ def maca_dourada_aparecer():
         comprimento_inicial = comprimento_inicial - 10
         maca_dourada_ativa = False
         maca_dourada_ja_apareceu = True
-    if duracao_maca_dourada < tempo_inicio_maca_dourada:
+    while duracao_maca_dourada < tempo_inicio_maca_dourada:
+        tempo_inicio_maca_dourada = pygame.time.get_ticks()
         maca_dourada_ativa = False
         maca_dourada_ja_apareceu = True
-
 
 
 # Função para renderizar o jogo
@@ -199,7 +199,6 @@ def render_morte():
 while True:
     relogio.tick(60)
     tela.fill((255, 255, 255))
-    tempo_atual = pygame.time.get_ticks()
     if not morte:
         render_game()
     else:
