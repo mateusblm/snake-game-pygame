@@ -45,7 +45,7 @@ def aumentaCobra(lista_cobra):
 
 # Função de reinicio do jogo
 def restart():
-    global fase, pontos, comprimento_inicial, x_cobra, y_cobra, velocidade, x_controle, y_controle, lista_cobra, lista_cabeca, x_maca, y_maca, morte
+    global fase, pontos, comprimento_inicial, x_cobra, y_cobra, velocidade, x_controle, y_controle, lista_cobra, lista_cabeca, x_maca, y_maca, morte, maca_dourada_ativa, maca_dourada_ja_apareceu
     pontos = 0
     fase = 1
     comprimento_inicial = 5
@@ -59,6 +59,8 @@ def restart():
     x_maca = randint(40, 600)
     y_maca = randint(50, 430)
     morte = False
+    maca_dourada_ativa = False
+    maca_dourada_ja_apareceu = False
 
 
 # Função verificadora de eventos
@@ -106,7 +108,11 @@ def maca_dourada_aparecer():
         tempo_inicio_maca_dourada = 0
         imagem_maca_dourada = pygame.image.load("goldapple.png")
         imagem_maca_dourada = pygame.transform.scale(imagem_maca_dourada, (30, 30))
-        maca_dourada = pygame.draw.rect(tela, (0, 0, 0), (x_macadourada, y_macadourada, 30, 30))
+        if fase != 2:
+            maca_dourada = pygame.draw.rect(tela, (0, 0, 0), (x_macadourada, y_macadourada, 30, 30))
+        else:
+            maca_dourada = pygame.draw.rect(tela, (255, 255, 255), (x_macadourada, y_macadourada, 30, 30))
+
         tela.blit(imagem_maca_dourada, (x_macadourada, y_macadourada))
 
     # Colisão com a maça dourada
@@ -142,15 +148,16 @@ def render_game():
 
     # Fases de dificuldade
     if 10 <= pontos < 20 and not morte:
-        tela.fill((0, 0, 0))
+        tela.fill((255, 255, 255))
         fase = 2
-        texto_formatado = fontepontos.render(pontuacao, True, (255, 255, 255))
-        texto_fases = fontefases.render(fases, True, (255, 255, 255))
+        texto_formatado = fontepontos.render(pontuacao, True, (0, 0, 0))
+        texto_fases = fontefases.render(fases, True, (0, 0, 0))
         cobra = pygame.draw.rect(tela, (255, 255, 225), (x_cobra, y_cobra, 20, 20))
         velocidade = 7
         if not maca_dourada_ja_apareceu:
             maca_dourada_ativa = True
             maca_dourada_aparecer()
+
 
     if pontos >= 20 and not morte:
         fase = 3
@@ -158,8 +165,18 @@ def render_game():
         velocidade = 8
     if pontos >= 50 and not morte:
         fase = 4
-        tela.fill((255, 0, 0))
+        tela.fill((7, 250, 249))
         velocidade = 9
+    if pontos >= 70 and not morte:
+        fase = 5
+        tela.fill((0, 0, 0))
+        texto_formatado = fontepontos.render(pontuacao, True, (255, 255, 255))
+        texto_fases = fontefases.render(fases, True, (255, 255, 255))
+        velocidade = 10
+        if not maca_dourada_ja_apareceu:
+            maca_dourada_ativa = True
+            maca_dourada_aparecer()
+
     # Lista que armazena a cada frame a posição da cabeça da cobra, ou seja, os valores de posicionamento mais recentes
     # que a cobra assume
     lista_cabeca = [x_cobra, y_cobra]
