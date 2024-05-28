@@ -176,7 +176,7 @@ def render_game():
     lista_cobra.append(copy.deepcopy(lista_cabeca))
     # Colisão com a parede
     if x_cobra > largura:
-        morte = Truea
+        morte = True
     if x_cobra < 0:
         morte = True
     if y_cobra < 0:
