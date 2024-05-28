@@ -21,7 +21,7 @@ x_macadourada = randint(40, 600)
 y_macadourada = randint(50, 430)
 maca_dourada_ativa = False
 tempo_inicio_maca_dourada = 0
-duracao_maca_dourada = 4000
+duracao_maca_dourada = 2000  
 maca_dourada_ja_apareceu = False
 fontepontos = pygame.font.SysFont("arial", 15, True, True)
 fontefases = pygame.font.SysFont("arial", 40, True, True)
@@ -29,19 +29,15 @@ pontos = 0
 lista_cobra = []
 comprimento_inicial = 15
 morte = False
+vitoria = False
 imagem_maca = pygame.image.load("apple.png")
 imagem_maca = pygame.transform.scale(imagem_maca, (25, 25))
 fase = 1
 
-
 # Função de desenho do corpo da cobra
 def aumentaCobra(lista_cobra):
     for XeY in lista_cobra:
-        # XeY = [x, y]
-        # XeY[0] = x
-        # XeY[1] = y
         pygame.draw.rect(tela, (0, 0, 255), (XeY[0], XeY[1], 20, 20))
-
 
 # Função de reinicio do jogo
 def restart():
@@ -61,7 +57,6 @@ def restart():
     morte = False
     maca_dourada_ativa = False
     maca_dourada_ja_apareceu = False
-
 
 # Função verificadora de eventos
 def verify_events():
@@ -100,37 +95,37 @@ def verify_events():
                         x_controle = 0
                         y_controle = velocidade
 
-
 def maca_dourada_aparecer():
-    global tempo_inicio_maca_dourada, maca_dourada, pontos, comprimento_inicial, maca_dourada_ativa, tempo_atual, x_macadourada, y_macadourada, maca_dourada_ja_apareceu
+    global tempo_inicio_maca_dourada, maca_dourada, pontos, comprimento_inicial, maca_dourada_ativa, x_macadourada, y_macadourada, maca_dourada_ja_apareceu
     global imagem_maca_dourada
-    if maca_dourada_ativa and not maca_dourada_ja_apareceu:
-        tempo_inicio_maca_dourada = 0
-        imagem_maca_dourada = pygame.image.load("goldapple.png")
-        imagem_maca_dourada = pygame.transform.scale(imagem_maca_dourada, (30, 30))
-        if fase != 2:
-            maca_dourada = pygame.draw.rect(tela, (0, 0, 0), (x_macadourada, y_macadourada, 30, 30))
-        else:
-            maca_dourada = pygame.draw.rect(tela, (255, 255, 255), (x_macadourada, y_macadourada, 30, 30))
+    if maca_dourada_ativa:
+        if not maca_dourada_ja_apareceu:
+            imagem_maca_dourada = pygame.image.load("goldapple.png")
+            imagem_maca_dourada = pygame.transform.scale(imagem_maca_dourada, (30, 30))
+            x_macadourada = randint(40, 600)
+            y_macadourada = randint(50, 430)
+            tempo_inicio_maca_dourada = pygame.time.get_ticks()
+            maca_dourada_ja_apareceu = True
 
+        maca_dourada = pygame.draw.rect(tela, (255, 215, 0), (x_macadourada, y_macadourada, 30, 30))
         tela.blit(imagem_maca_dourada, (x_macadourada, y_macadourada))
 
-    # Colisão com a maça dourada
-    if cobra.colliderect(pygame.Rect(x_macadourada, y_macadourada, 20, 20)):
-        pontos += 5
-        comprimento_inicial = comprimento_inicial - 10
-        maca_dourada_ativa = False
-        maca_dourada_ja_apareceu = True
-    while duracao_maca_dourada < tempo_inicio_maca_dourada:
-        tempo_inicio_maca_dourada = pygame.time.get_ticks()
-        maca_dourada_ativa = False
-        maca_dourada_ja_apareceu = True
+        # Verifica se o tempo de exibição da maçã dourada já passou
+        if pygame.time.get_ticks() - tempo_inicio_maca_dourada > duracao_maca_dourada:
+            maca_dourada_ativa = False
+            maca_dourada_ja_apareceu = True
 
+    # Colisão com a maça dourada
+    if cobra.colliderect(pygame.Rect(x_macadourada, y_macadourada, 30, 30)):
+        pontos += 5
+        comprimento_inicial += 10
+        maca_dourada_ativa = False
+        maca_dourada_ja_apareceu = True
 
 # Função para renderizar o jogo
 def render_game():
     global fase, pontos, comprimento_inicial, x_cobra, y_cobra, velocidade, x_controle, y_controle, lista_cobra, lista_cabeca, x_maca, y_maca, morte, y_macadourada, x_macadourada, maca_dourada_ativa, maca_dourada
-    global tempo_inicio_maca_dourada, cobra, maca_dourada_ja_apareceu
+    global tempo_inicio_maca_dourada, cobra, maca_dourada_ja_apareceu, vitoria
     pontuacao = f"Pontos: {pontos}"
     fases = f"FASE {fase}"
     texto_fases = fontefases.render(fases, True, (0, 0, 0))
@@ -143,7 +138,7 @@ def render_game():
     if cobra.colliderect(maca):
         x_maca = randint(40, 600)
         y_maca = randint(50, 430)
-        pontos += 1
+        pontos += 10
         comprimento_inicial += 1
 
     # Fases de dificuldade
@@ -156,8 +151,6 @@ def render_game():
         velocidade = 7
         if not maca_dourada_ja_apareceu:
             maca_dourada_ativa = True
-            maca_dourada_aparecer()
-
 
     if pontos >= 20 and not morte:
         fase = 3
@@ -173,10 +166,8 @@ def render_game():
         texto_formatado = fontepontos.render(pontuacao, True, (255, 255, 255))
         texto_fases = fontefases.render(fases, True, (255, 255, 255))
         velocidade = 10
-        if not maca_dourada_ja_apareceu:
-            maca_dourada_ativa = True
-            maca_dourada_aparecer()
-
+    if pontos >= 100 and not morte:
+        vitoria = True
     # Lista que armazena a cada frame a posição da cabeça da cobra, ou seja, os valores de posicionamento mais recentes
     # que a cobra assume
     lista_cabeca = [x_cobra, y_cobra]
@@ -185,7 +176,7 @@ def render_game():
     lista_cobra.append(copy.deepcopy(lista_cabeca))
     # Colisão com a parede
     if x_cobra > largura:
-        morte = True
+        morte = Truea
     if x_cobra < 0:
         morte = True
     if y_cobra < 0:
@@ -202,6 +193,9 @@ def render_game():
     tela.blit(texto_fases, (260, 40))
     tela.blit(imagem_maca, (x_maca, y_maca))
 
+    # Renderiza a maçã dourada se estiver ativa
+    if maca_dourada_ativa:
+        maca_dourada_aparecer()
 
 # Função de morte
 def render_morte():
@@ -211,14 +205,23 @@ def render_morte():
     ret_mensagem_morte = mensagem_morte_formatado.get_rect()
     ret_mensagem_morte.center = (largura // 2, altura // 2)
     tela.blit(mensagem_morte_formatado, ret_mensagem_morte)
-
-
+def render_vitoria():
+    tela.fill((255, 255, 255))
+    fontemorte = pygame.font.SysFont("arial", 40, True, True)
+    mensagem_vitoria = f"Parabens por vencer o jogo!!!"
+    mensagem_vitoria_formatado = fontemorte.render(mensagem_vitoria, True, (0, 252, 0))
+    ret_mensagem_vitoria = mensagem_vitoria_formatado.get_rect()
+    ret_mensagem_vitoria.center = (largura // 2, altura // 2)
+    tela.blit(mensagem_vitoria_formatado, ret_mensagem_vitoria)
 while True:
     relogio.tick(60)
     tela.fill((175, 215, 70))
-    if not morte:
+    if not morte and not vitoria:
         render_game()
+    elif vitoria:
+        render_vitoria()
     else:
         render_morte()
+    
     pygame.display.update()
     verify_events()
