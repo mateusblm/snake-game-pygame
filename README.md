@@ -52,5 +52,3 @@ Este projeto está sob a licença de Mateus Burlamaqui Moreira. Veja o arquivo L
 Contato
 
 Mateus Burlamaqui Moreira - mateusblm@outlook.com
-
-Link do Projeto: https://github.com/mateusblm/snakegame
