@@ -60,7 +60,7 @@ def restart():
 
 # Função verificadora de eventos
 def verify_events():
-    global fase, pontos, comprimento_inicial, x_cobra, y_cobra, velocidade, x_controle, y_controle, lista_cobra, lista_cabeca, x_maca, y_maca, morte
+    global fase, pontos, comprimento_inicial, x_cobra, y_cobra, velocidade, x_controle, y_controle, lista_cobra, lista_cabeca, x_maca, y_maca, morte, vitoria
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -69,6 +69,9 @@ def verify_events():
             if morte:
                 restart()
                 morte = False
+            elif vitoria:
+                restart()
+                vitoria = False
             else:
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     if x_controle == velocidade:
