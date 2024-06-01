@@ -44,7 +44,7 @@ def restart():
     global fase, pontos, comprimento_inicial, x_cobra, y_cobra, velocidade, x_controle, y_controle, lista_cobra, lista_cabeca, x_maca, y_maca, morte, maca_dourada_ativa, maca_dourada_ja_apareceu
     pontos = 0
     fase = 1
-    comprimento_inicial = 5
+    comprimento_inicial = 15
     x_cobra = largura / 2
     y_cobra = altura / 2
     velocidade = 5
@@ -107,7 +107,7 @@ def maca_dourada_aparecer():
             tempo_inicio_maca_dourada = pygame.time.get_ticks()
             maca_dourada_ja_apareceu = True
 
-        maca_dourada = pygame.draw.rect(tela, (255, 215, 0), (x_macadourada, y_macadourada, 30, 30))
+        maca_dourada = pygame.draw.rect(tela, (255, 255, 255), (x_macadourada, y_macadourada, 30, 30))
         tela.blit(imagem_maca_dourada, (x_macadourada, y_macadourada))
 
         # Verifica se o tempo de exibição da maçã dourada já passou
