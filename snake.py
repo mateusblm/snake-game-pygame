@@ -138,7 +138,7 @@ def render_game():
     if cobra.colliderect(maca):
         x_maca = randint(40, 600)
         y_maca = randint(50, 430)
-        pontos += 10
+        pontos += 1
         comprimento_inicial += 1
 
     # Fases de dificuldade
