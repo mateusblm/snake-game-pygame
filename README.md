@@ -1,6 +1,6 @@
 # Snake Game com PyGame
 
-Um jogo clássico de Snake reimaginado e desenvolvido utilizando a biblioteca PyGame. Este projeto marca a minha primeira incursão no desenvolvimento de jogos com PyGame, explorando suas funcionalidades e aprendendo sobre a criação de jogos em Python.
+Um jogo clássico de Snake recriado e desenvolvido utilizando a biblioteca PyGame. Este projeto marca a minha primeira incursão no desenvolvimento de jogos com PyGame, explorando suas funcionalidades e aprendendo sobre a criação de jogos em Python.
 Sobre o Projeto
 
 Este projeto foi desenvolvido como uma forma de me introduzir ao desenvolvimento de jogos utilizando a biblioteca PyGame em Python. O objetivo era criar uma versão funcional e divertida do clássico jogo Snake, onde o jogador controla uma cobra que cresce ao comer frutas, evitando colidir com as paredes ou com o próprio corpo.
