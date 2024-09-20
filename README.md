@@ -6,7 +6,6 @@ Sobre o Projeto
 Este projeto foi desenvolvido como uma forma de me introduzir ao desenvolvimento de jogos utilizando a biblioteca PyGame em Python. O objetivo era criar uma versão funcional e divertida do clássico jogo Snake, onde o jogador controla uma cobra que cresce ao comer frutas, evitando colidir com as paredes ou com o próprio corpo.
 
 Durante o desenvolvimento deste projeto, aprendi coisas como a lógica para o movimento da cobra, a detecção de colisões e a implementação de uma interface de usuário intuitiva. Este projeto não apenas me proporcionou uma sólida compreensão dos fundamentos do desenvolvimento de jogos com PyGame, mas também me inspirou a explorar mais profundamente a criação de jogos em Python.
-Começando
 
 Para executar este projeto localmente, siga os passos abaixo para configurar o seu ambiente de desenvolvimento.
 Pré-requisitos
